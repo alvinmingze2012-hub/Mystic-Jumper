@@ -1,46 +1,46 @@
-const canvas = document.getElementById("gameCanvas");
-const ctx = canvas.getContext("2d");
+const player = document.getElementById("player");
+const enemy = document.getElementById("enemy");
 
-let player = {
-    x: 100,
-    y: 300,
-    width: 40,
-    height: 40,
-    color: "red",
-    velocityY: 0,
-    gravity: 0.5,
-    jumpPower: -10,
-    grounded: false
-};
+let playerBottom = 20;
+let velocity = 0;
+let gravity = 0.6;
+let isJumping = false;
 
-function drawPlayer() {
-    ctx.fillStyle = player.color;
-    ctx.fillRect(player.x, player.y, player.width, player.height);
-}
-
-function update() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    // Gravity
-    player.velocityY += player.gravity;
-    player.y += player.velocityY;
-
-    // Ground collision
-    if (player.y + player.height >= canvas.height) {
-        player.y = canvas.height - player.height;
-        player.velocityY = 0;
-        player.grounded = true;
-    }
-
-    drawPlayer();
-    requestAnimationFrame(update);
-}
-
-document.addEventListener("keydown", function(event) {
-    if (event.code === "Space" && player.grounded) {
-        player.velocityY = player.jumpPower;
-        player.grounded = false;
+// Jump
+document.addEventListener("keydown", function(e) {
+    if (e.code === "Space" && !isJumping) {
+        velocity = 12;
+        isJumping = true;
     }
 });
+
+function update() {
+
+    // Gravity
+    velocity -= gravity;
+    playerBottom += velocity;
+
+    if (playerBottom <= 20) {
+        playerBottom = 20;
+        velocity = 0;
+        isJumping = false;
+    }
+
+    player.style.bottom = playerBottom + "px";
+
+    // Enemy movement
+    let enemyLeft = parseInt(enemy.style.left);
+    enemyLeft -= 2;
+    if (enemyLeft < 0) enemyLeft = 800;
+    enemy.style.left = enemyLeft + "px";
+
+    // Collision
+    if (enemyLeft < 140 && enemyLeft > 80 && playerBottom <= 60) {
+        alert("Game Over!");
+        playerBottom = 20;
+    }
+
+    requestAnimationFrame(update);
+}
 
 update();
