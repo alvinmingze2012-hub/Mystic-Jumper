@@ -3,36 +3,107 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mystic Leapfall - 2D Platformer</title>
+    <title>Super Mario Leapfall - Classic Platformer</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="game-container">
-        <div class="game-header">
-            <h1>Mystic Leapfall</h1>
-            <div class="game-stats">
-                <div class="stat">Score: <span id="score">0</span></div>
-                <div class="stat">Lives: <span id="lives">3</span></div>
-                <div class="stat">Level: <span id="level">1</span></div>
+    <div class="game-wrapper">
+        <!-- Game Container -->
+        <div class="game-container">
+            <!-- Header with Mario-style UI -->
+            <div class="game-header">
+                <div class="title-screen">
+                    <h1 class="game-title">SUPER MARIO LEAPFALL</h1>
+                    <div class="world-indicator">WORLD <span id="worldNumber">1-1</span></div>
+                </div>
+                
+                <!-- Mario-style Stats Display -->
+                <div class="stats-panel">
+                    <div class="stat-group">
+                        <div class="stat-label">SCORE</div>
+                        <div class="stat-value" id="score">000000</div>
+                    </div>
+                    <div class="stat-group">
+                        <div class="stat-label">COINS</div>
+                        <div class="stat-value" id="coins">00</div>
+                    </div>
+                    <div class="stat-group">
+                        <div class="stat-label">WORLD</div>
+                        <div class="stat-value" id="world">1-1</div>
+                    </div>
+                    <div class="stat-group">
+                        <div class="stat-label">LIVES</div>
+                        <div class="stat-value" id="lives">3</div>
+                    </div>
+                    <div class="stat-group">
+                        <div class="stat-label">TIME</div>
+                        <div class="stat-value" id="time">400</div>
+                    </div>
+                </div>
             </div>
-        </div>
-        
-        <canvas id="gameCanvas" width="800" height="400"></canvas>
-        
-        <div class="game-controls">
-            <div class="controls-info">
-                <h3>Controls:</h3>
-                <p>A/← - Move Left | D/→ - Move Right | Space - Jump | Shift - Dash | ESC - Pause</p>
+
+            <!-- Game Canvas -->
+            <canvas id="gameCanvas" width="800" height="480"></canvas>
+
+            <!-- Power-up Status -->
+            <div class="powerup-status" id="powerupStatus">
+                <div class="powerup-icon">⭐</div>
+                <div class="powerup-name" id="powerupName">None</div>
             </div>
-            <button id="startButton">Start Game</button>
-            <button id="pauseButton">Pause</button>
+
+            <!-- Controls Panel -->
+            <div class="controls-panel">
+                <div class="controls-grid">
+                    <div class="control-item">
+                        <span class="control-key">← →</span>
+                        <span class="control-desc">MOVE</span>
+                    </div>
+                    <div class="control-item">
+                        <span class="control-key">SPACE</span>
+                        <span class="control-desc">JUMP</span>
+                    </div>
+                    <div class="control-item">
+                        <span class="control-key">SHIFT</span>
+                        <span class="control-desc">RUN</span>
+                    </div>
+                    <div class="control-item">
+                        <span class="control-key">ESC</span>
+                        <span class="control-desc">PAUSE</span>
+                    </div>
+                </div>
+                
+                <div class="action-buttons">
+                    <button id="startButton" class="mario-btn start">START GAME</button>
+                    <button id="pauseButton" class="mario-btn pause">PAUSE</button>
+                    <button id="resetButton" class="mario-btn reset">RESET</button>
+                </div>
+            </div>
+
+            <!-- Game Messages -->
+            <div class="game-message" id="gameMessage"></div>
         </div>
-        
-        <div class="power-up-indicator">
-            <div id="powerUp">No Power-Up</div>
+
+        <!-- Game Over Screen -->
+        <div class="game-overlay" id="gameOverlay">
+            <div class="overlay-content">
+                <h2 id="overlayTitle">GAME OVER</h2>
+                <p id="overlayMessage"></p>
+                <button class="mario-btn" id="overlayButton">CONTINUE</button>
+            </div>
         </div>
     </div>
-    
-    <script src="game.js"></script>
+
+    <!-- Scripts -->
+    <script src="js/constants.js"></script>
+    <script src="js/player.js"></script>
+    <script src="js/platform.js"></script>
+    <script src="js/enemy.js"></script>
+    <script src="js/item.js"></script>
+    <script src="js/level.js"></script>
+    <script src="js/collision.js"></script>
+    <script src="js/renderer.js"></script>
+    <script src="js/input.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/game.js"></script>
 </body>
 </html>
